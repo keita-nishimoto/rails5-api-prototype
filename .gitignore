@@ -43,3 +43,7 @@ bower.json
 # Ignore Byebug command history file.
 .byebug_history
 
+# IntelliJ IDEA SettingFiles
+.idea/
+rails5-api-prototype.iml
+vendor/
