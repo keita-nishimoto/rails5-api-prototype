@@ -13,20 +13,20 @@ default: &default
   adapter: mysql2
   encoding: utf8
   pool: 5
-  username: root
-  password:
+  username: rails5_api_user
+  password: Rails@RootPassword999@
   socket: /var/lib/mysql/mysql.sock
 
 development:
   <<: *default
-  database: rails5-api-prototype_development
+  database: rails5_api
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: rails5-api-prototype_test
+  database: rails5_api_test
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -49,6 +49,6 @@ test:
 #
 production:
   <<: *default
-  database: rails5-api-prototype_production
-  username: rails5-api-prototype
+  database: rails5_api
+  username: rails5_api_user
   password: <%= ENV['RAILS5-API-PROTOTYPE_DATABASE_PASSWORD'] %>
