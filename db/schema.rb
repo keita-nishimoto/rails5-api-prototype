@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161021201757) do
+ActiveRecord::Schema.define(version: 20161023004337) do
+
+  create_table "emails", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
+    t.integer  "user_id",                        null: false
+    t.string   "email",                          null: false
+    t.boolean  "email_verified", default: false, null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.index ["email"], name: "index_emails_on_email", unique: true, using: :btree
+    t.index ["user_id"], name: "index_emails_on_user_id", unique: true, using: :btree
+  end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
     t.integer  "gender",     default: 0, null: false
