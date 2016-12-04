@@ -13,8 +13,10 @@
 ActiveRecord::Schema.define(version: 20161021201757) do
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "gender",     default: 0, null: false
+    t.date     "birthdate",              null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
 end
