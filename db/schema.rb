@@ -12,21 +12,23 @@
 
 ActiveRecord::Schema.define(version: 20161023004337) do
 
-  create_table "emails", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
-    t.integer  "user_id",                        null: false
+  create_table "emails", unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
+    t.integer  "user_id",                        null: false, unsigned: true
     t.string   "email",                          null: false
     t.boolean  "email_verified", default: false, null: false
+    t.integer  "lock_version",   default: 0,     null: false, unsigned: true
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
     t.index ["email"], name: "index_emails_on_email", unique: true, using: :btree
     t.index ["user_id"], name: "index_emails_on_user_id", unique: true, using: :btree
   end
 
-  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
-    t.integer  "gender",     default: 0, null: false
-    t.date     "birthdate",              null: false
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+  create_table "users", unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
+    t.integer  "gender",       default: 0, null: false, unsigned: true
+    t.date     "birthdate",                null: false
+    t.integer  "lock_version", default: 0, null: false, unsigned: true
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
 end
