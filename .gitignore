@@ -21,3 +21,6 @@
 .idea/
 rails5-api-prototype.iml
 vendor/
+
+# vagrant
+.vagrant
