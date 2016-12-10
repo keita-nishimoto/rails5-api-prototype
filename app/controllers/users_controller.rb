@@ -10,14 +10,31 @@ class UsersController < ApplicationController
 
   # GET /users/1
   def show
-    render json: @user
+    api_response = {
+      sub: @user.id,
+      gender: @user.gender,
+      birthdate: @user.birthdate,
+      _embedded: {
+        email: {
+          id: @user.email.id,
+          email: @user.email.email,
+          email_verified: @user.email.email_verified
+        },
+        password: {
+          id: @user.password.id,
+          password_hash: @user.password.password_hash
+        }
+      }
+    }
+
+    render json: api_response
   end
 
   # POST /users
   def create
     if @user = User.create(user_params)
 
-      apiResponse = {
+      api_response = {
         _links: {
           self: {
             href: "/users/#{@user.id}"
@@ -39,7 +56,7 @@ class UsersController < ApplicationController
         }
       }
 
-      render json: apiResponse, status: :created, location: @user
+      render json: api_response, status: :created, location: @user
     else
       render json: @user.errors, status: :unprocessable_entity
     end
