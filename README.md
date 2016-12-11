@@ -4,18 +4,26 @@ Ruby on Rails5で作成したRestAPIのプロトタイプ
 * Ruby version
   2.3.1
 
-* System dependencies
+## 作業の進め方
 
-* Configuration
+1. featureブランチを作成。
 
-* Database creation
+※ブランチ名はfeature + 分かりやすい名前で
 
-* Database initialization
+2. 作成したfeatureブランチとIssueを紐付ける。
 
-* How to run the test suite
+[こちら](https://github.com/shiro615/futsal_app/issues/2)を参考にさせて頂きました。
 
-* Services (job queues, cache servers, search engines, etc.)
+コミット内容にIssueのIDを含めるようにすれば良い。
 
-* Deployment instructions
+```
+$ git commit --allow-empty -m "resolve #5"
+```
 
-* ...
+"#5"の部分に対象のIssue IDを入れる。
+
+3. プルリクエストを作成する。
+
+4. 確認後、問題がなければマージする。
+
+もし問題があれば、修正し再度プルリクエストを作成する。
