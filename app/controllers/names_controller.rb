@@ -27,7 +27,7 @@ class NamesController < ApplicationController
   # PATCH/PUT /users/1/names/1
   def update
     if @name.update(name_params)
-      render json: @name
+      render json: update_response
     else
       render json: @name.errors, status: :unprocessable_entity
     end
@@ -84,5 +84,12 @@ class NamesController < ApplicationController
       }
 
       api_response
+    end
+
+    # update用のresponseを生成する
+    #
+    # @return [Hash]
+    def update_response
+      create_response
     end
 end
