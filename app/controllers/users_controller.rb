@@ -33,30 +33,7 @@ class UsersController < ApplicationController
   # POST /users
   def create
     if @user = User.create(user_params)
-
-      api_response = {
-        _links: {
-          self: {
-            href: "/users/#{@user.id}"
-          }
-        },
-        sub: @user.id,
-        gender: @user.gender,
-        birthdate: @user.birthdate,
-        _embedded: {
-          email: {
-            id: @user.email.id,
-            email: @user.email.email,
-            email_verified: @user.email.email_verified
-          },
-          password: {
-            id: @user.password.id,
-            password_hash: @user.password.password_hash
-          }
-        }
-      }
-
-      render json: api_response, status: :created, location: @user
+      render json: create_response, status: :created, location: @user
     else
       render json: @user.errors, status: :unprocessable_entity
     end
@@ -65,7 +42,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   def update
     if @user.update(user_params)
-      render json: @user
+      render json: update_response
     else
       render json: @user.errors, status: :unprocessable_entity
     end
@@ -90,5 +67,65 @@ class UsersController < ApplicationController
         email_attributes: [:email, :email_verified],
         password_attributes: [:password_hash]
       )
+    end
+
+    # show用のresponseを生成する
+    #
+    # @return [Hash]
+    def show_response
+      api_response = {
+        sub: @user.id,
+        gender: @user.gender,
+        birthdate: @user.birthdate,
+        _embedded: {
+          email: {
+            id: @user.email.id,
+            email: @user.email.email,
+            email_verified: @user.email.email_verified
+          },
+          password: {
+            id: @user.password.id,
+            password_hash: @user.password.password_hash
+          }
+        }
+      }
+
+      api_response
+    end
+
+    # create用のresponseを生成する
+    #
+    # @return [Hash]
+    def create_response
+      api_response = {
+        _links: {
+          self: {
+            href: "/users/#{@user.id}"
+          }
+        },
+        sub: @user.id,
+        gender: @user.gender,
+        birthdate: @user.birthdate,
+        _embedded: {
+          email: {
+            id: @user.email.id,
+            email: @user.email.email,
+            email_verified: @user.email.email_verified
+          },
+          password: {
+            id: @user.password.id,
+            password_hash: @user.password.password_hash
+          }
+        }
+      }
+
+      api_response
+    end
+
+    # update用のresponseを生成する
+    #
+    # @return [Hash]
+    def update_response
+      create_response
     end
 end
