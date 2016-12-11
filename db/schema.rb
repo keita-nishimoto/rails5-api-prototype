@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161023015937) do
+ActiveRecord::Schema.define(version: 20161211134256) do
 
   create_table "emails", unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
     t.integer  "user_id",                        null: false, unsigned: true
@@ -23,7 +23,19 @@ ActiveRecord::Schema.define(version: 20161023015937) do
     t.index ["user_id"], name: "ui_emails_01", unique: true, using: :btree
   end
 
-  create_table "passwords", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
+  create_table "names", unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
+    t.integer  "user_id",                        null: false, unsigned: true
+    t.string   "given_name",                     null: false
+    t.string   "family_name",                    null: false
+    t.string   "nickname",                       null: false
+    t.string   "preferred_username",             null: false
+    t.integer  "lock_version",       default: 0, null: false, unsigned: true
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.index ["user_id"], name: "ui_names_01", unique: true, using: :btree
+  end
+
+  create_table "passwords", unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
     t.integer  "user_id",                   null: false, unsigned: true
     t.string   "password_hash",             null: false
     t.integer  "lock_version",  default: 0, null: false, unsigned: true
