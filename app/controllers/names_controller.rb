@@ -9,9 +9,24 @@ class NamesController < ApplicationController
     render json: @names
   end
 
-  # GET /names/1
+  # GET /users/1/names/1
   def show
-    render json: @name
+    api_response = {
+      id: @name.id,
+      given_name: @name.given_name,
+      family_name: @name.family_name,
+      nickname: @name.nickname,
+      preferred_username: @name.preferred_username,
+      _embedded: {
+        user: {
+          sub: @user.id,
+          gender: @user.gender,
+          birthdate: @user.birthdate,
+        }
+      }
+    }
+
+    render json: api_response
   end
 
   # POST /users/1/names
