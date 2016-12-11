@@ -2,31 +2,16 @@ class NamesController < ApplicationController
   before_action :set_name, only: [:show, :update, :destroy]
   before_action :set_user
 
-  # GET /names
+  # GET /users/1/names
   def index
-    @names = Name.all
+    @name = Name.find_by user_id: @user.id
 
-    render json: @names
+    render json: index_response
   end
 
   # GET /users/1/names/1
   def show
-    api_response = {
-      id: @name.id,
-      given_name: @name.given_name,
-      family_name: @name.family_name,
-      nickname: @name.nickname,
-      preferred_username: @name.preferred_username,
-      _embedded: {
-        user: {
-          sub: @user.id,
-          gender: @user.gender,
-          birthdate: @user.birthdate,
-        }
-      }
-    }
-
-    render json: api_response
+    render json: show_response
   end
 
   # POST /users/1/names
@@ -72,6 +57,35 @@ class NamesController < ApplicationController
         :nickname,
         :preferred_username
       )
+    end
+
+    # index用のresponseを生成する
+    #
+    # @return [Hash]
+    def index_response
+      api_response = {
+        id: @name.id,
+        given_name: @name.given_name,
+        family_name: @name.family_name,
+        nickname: @name.nickname,
+        preferred_username: @name.preferred_username,
+        _embedded: {
+          user: {
+            sub: @user.id,
+            gender: @user.gender,
+            birthdate: @user.birthdate,
+          }
+        }
+      }
+
+      api_response
+    end
+
+    # show用のresponseを生成する
+    #
+    # @return [Hash]
+    def show_response
+      index_response
     end
 
     # create用のresponseを生成する
